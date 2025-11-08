@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Checker Chatbot</title>
+    <style>
+        body {
+            background-color: #f2f5f7;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            background-color: white;
+            width: 400px;
+            height: 600px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-box {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .user, .bot {
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 10px;
+            width: fit-content;
+            max-width: 80%;
+        }
+
+        .user {
+            background-color: #d1e7ff;
+            align-self: flex-end;
+        }
+
+        .bot {
+            background-color: #e9ecef;
+            align-self: flex-start;
+        }
+
+        .input-box {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+
+        .input-box input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .input-box button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            <div class="bot">Hi! I'm your Symptom Checker Bot 🤖<br>How are you feeling today?</div>
+        </div>
+        <div class="input-box">
+            <input type="text" id="userInput" placeholder="Type your symptom..." onkeydown="if(event.key==='Enter'){sendMessage()}">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            let input = document.getElementById('userInput');
+            let msg = input.value.trim();
+            if (!msg) return;
+
+            let chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `<div class='user'>${msg}</div>`;
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            let res = await fetch(`/get?msg=${msg}`);
+            let data = await res.text();
+            chatBox.innerHTML += `<div class='bot'>${data}</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hello", "Hey", "Good morning", "Good evening"],
+      "responses": ["Hello! How can I assist you today?"]
+    },
+    {
+      "tag": "symptom_fever",
+      "patterns": ["I have fever", "Feeling hot", "I am sick", "My body is burning"],
+      "responses": ["It seems like you have a fever. Drink fluids and take rest."]
+    },
+    {
+      "tag": "symptom_cough",
+      "patterns": ["I have cough", "I am coughing", "Throat pain", "Cold"],
+      "responses": ["Looks like a cough. Have warm fluids and consult a doctor if it persists."]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful"],
+      "responses": ["Glad to help! Stay healthy!"]
+    }
+  ]
+}
